@@ -17,18 +17,17 @@
   (android-notifications-notify :title (plist-get info :title)
 				:body (plist-get info :message)))
 
-(alert-define-style 'android :title "Android"
-                    :notifier #'alert-android-notifier)
-
 (use-package alert
   :config
+  (alert-define-style 'android :title "Android"
+                      :notifier #'alert-android-notifier)
   (setq alert-default-style 'android))
 
 (use-package org-alert
-  :init
-  (org-alert-enable)
+  :demand t
   :config
-  (setq org-alert-interval 10))
+  (setq org-alert-interval 10)
+  (org-alert-enable))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
