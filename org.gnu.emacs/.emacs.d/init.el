@@ -59,6 +59,8 @@
            :target (file+head "%<%Y-%m-%d>.org"
                               "#+title: %<%Y-%m-%d>\n")))))
 
+(use-package ledger-mode)
+
 (use-package org-capture
   :config
   (setq org-capture-templates
@@ -66,7 +68,7 @@
                   ("ld" "Discover" plain
                    (file "~/ledger/main.ledger")
                    "%(org-read-date) %^{Payee}
-  Expenses:%^{Account}  %^{Amount}
+  Expenses:%^{Account}           $ %^{Amount}
   Liabilities:Discover
 "))
                 org-capture-templates)))
@@ -76,7 +78,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(magit org-alert org-roam)))
+ '(package-selected-packages '(ledger-mode magit org-alert org-roam)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
