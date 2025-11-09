@@ -29,12 +29,42 @@
   (setq org-alert-interval 10)
   (org-alert-enable))
 
+(use-package org-roam
+  :demand
+  :init
+  (setq org-roam-v2-ack t)
+  :bind (("C-c n f" . org-roam-node-find)
+         ("C-c n g" . org-roam-graph)
+         ("C-c n r" . org-roam-node-random)
+         (:map org-mode-map
+               (("C-c n i" . org-roam-node-insert)
+                ("C-c n o" . org-id-get-create)
+                ("C-c n t" . org-roam-tag-add)
+                ("C-c n a" . org-roam-alias-add)
+                ("C-c n l" . org-roam-buffer-toggle))))
+  :config
+  (require 'ucs-normalize)
+  (setq org-roam-directory (file-truename
+                            (concat org-directory "/notes/")))
+  (org-roam-db-autosync-mode))
+
+(use-package org-roam-dailies
+  :bind
+  ("C-c n d" . org-roam-dailies-goto-today)
+  :config
+  (setq org-roam-dailies-directory "daily/")
+  (setq org-roam-dailies-capture-templates
+        '(("d" "default" entry
+           "* %?"
+           :target (file+head "%<%Y-%m-%d>.org"
+                              "#+title: %<%Y-%m-%d>\n")))))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(org-alert)))
+ '(package-selected-packages '(magit org-alert org-roam)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
