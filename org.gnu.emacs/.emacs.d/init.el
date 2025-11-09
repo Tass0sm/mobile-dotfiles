@@ -59,6 +59,18 @@
            :target (file+head "%<%Y-%m-%d>.org"
                               "#+title: %<%Y-%m-%d>\n")))))
 
+(use-package org-capture
+  :config
+  (setq org-capture-templates
+        (append '(("l" "Ledger entries")
+                  ("ld" "Discover" plain
+                   (file "~/ledger/main.ledger")
+                   "%(org-read-date) %^{Payee}
+  Expenses:%^{Account}  %^{Amount}
+  Liabilities:Discover
+"))
+                org-capture-templates)))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
