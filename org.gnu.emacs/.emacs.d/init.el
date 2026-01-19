@@ -62,16 +62,32 @@
 (use-package ledger-mode)
 
 (use-package org-capture
+  :bind
+  ("C-c r" . org-capture)
   :config
   (setq org-capture-templates
-        (append '(("l" "Ledger entries")
-                  ("ld" "Discover" plain
-                   (file "~/ledger/main.ledger")
-                   "%(org-read-date) %^{Payee}
+        '(("l" "Ledger entries")
+          ("ld" "Discover" plain
+           (file "~/ledger/main.ledger")
+           "%(org-read-date) %^{Payee}
   Expenses:%^{Account}           $ %^{Amount}
   Liabilities:Discover
-"))
-                org-capture-templates)))
+")
+          ("p" "Project" entry
+           (file "~/org/agenda/main.org")
+           "* PROJ %^{Brief Description}\nAdded: %U\n%?" :empty-lines 1 :prepend t)
+
+          ("n" "Next action" entry
+           (file "~/org/agenda/main.org")
+           "** TODO %^{Brief Description}\nAdded: %U\n%?" :empty-lines 1 :prepend t)
+
+          ("w" "Waiting" entry
+           (file "~/org/agenda/main.org")
+           "** WAIT %^{Brief Description}\nAdded: %U\n%?" :empty-lines 1 :prepend t)
+
+           ("s" "Someday" entry
+           (file "~/org/agenda/someday.org")
+           "* TODO %^{Brief Description}\nAdded: %U\n%?" :empty-lines 1 :prepend t))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
